@@ -1,18 +1,29 @@
+def znizka(lista, do_zaplaty):
+    rabat=0
+
+#Jesli R1 to nie R2
+    if len(lista) > 3:
+        rabat=5
+        return rabat
+
+    if do_zaplaty >= 500:
+        rabat=10
+        return rabat
+
 def wartosc_koszyka (lista):
     suma=0
+
     for i in lista:
-        suma+=i['wartosc']
-
-    #Naliczenie obnizki 5% przy 3 rzeczach
-    if len(lista) >= 2:
-        suma=0.95*suma
-
+        suma+=i['cena']*i['ilosc']
+    bonus=znizka(lista, suma)
+    suma=(1-bonus*0.01)*suma
+    print("Znizka wynosi " + str(bonus) + "%")
     return suma
 
-koszyk = [{'nazwa': 'jablka', 'wartosc': 2},
-{'nazwa': 'gruszki', 'wartosc': 3},
-{'nazwa': 'sliwki', 'wartosc': 2.5},
-{'nazwa': 'mleko', 'wartosc': 2.5},
-{'nazwa': 'ser', 'wartosc': 2.5}]
+koszyk = [{'nazwa': 'ser', 'cena': 2, 'ilosc': 1},
+{'nazwa': 'mleko', 'cena': 3, 'ilosc': 2},
+{'nazwa': 'sliwki', 'cena': 2.5, 'ilosc': 600},
+{'nazwa': 'maka', 'cena': 2.5, 'ilosc':300}]
 
-print(wartosc_koszyka(koszyk))
+
+print("Wartosc do zaplaty wynosi {:.2f}".format(wartosc_koszyka(koszyk))+"zl")
